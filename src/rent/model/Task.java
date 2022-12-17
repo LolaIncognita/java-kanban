@@ -1,22 +1,18 @@
 package rent.model;
-
+import rent.service.StatusOfTasks;
 import java.util.Objects;
 
 public class Task {
-    String taskName;
+    public String taskName;
     public String taskDescription;
-    public Integer uniqueIdentificationNumber;
-    protected String taskStatus;
+    public Integer id;
+    protected StatusOfTasks taskStatus;
 
-
-    public Task() {
-    }
-
-    public String getTaskStatus() {
+    public StatusOfTasks getTaskStatus() {
         return taskStatus;
     }
 
-    public void setTaskStatus(String newTaskStatus) {
+    public void setTaskStatus(StatusOfTasks newTaskStatus) {
         taskStatus = newTaskStatus;
     }
 
@@ -26,7 +22,6 @@ public class Task {
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         Task otherTask = (Task) obj;
-        return Objects.equals(otherTask.uniqueIdentificationNumber, ((Task) obj).uniqueIdentificationNumber);
+        return Objects.equals(otherTask.id, ((Task) obj).id);
     }
-
 }

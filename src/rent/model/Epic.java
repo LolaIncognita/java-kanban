@@ -1,31 +1,26 @@
 package rent.model;
-import rent.service.Manager;
-
+import rent.service.StatusOfTasks;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends Task {
-    ArrayList<Integer> subtasksOfEpic;
-    public Epic() {
-        subtasksOfEpic = new ArrayList<>();
-    }
+    ArrayList<Integer> subtaskIdOfEpic;
 
     public void joinSubtaskToEpic(Epic joiningEpic, Subtask joiningSubtask) {
-        joiningEpic.subtasksOfEpic.add(joiningSubtask.uniqueIdentificationNumber);
+        joiningEpic.subtaskIdOfEpic.add(joiningSubtask.id);
     }
 
     public ArrayList<Integer> getSubtasksOfEpic(Epic epic) {
-        return epic.subtasksOfEpic;
+        return epic.subtaskIdOfEpic;
     }
 
-    public void setEpicStatus(String newStatus) {
+    public void setEpicStatus(StatusOfTasks newStatus) {
         taskStatus = newStatus;
     }
 
-    public String getEpicStatus() {
+    public StatusOfTasks getEpicStatus() {
         return taskStatus;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -33,6 +28,6 @@ public class Epic extends Task {
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         Epic otherEpic = (Epic) obj;
-        return Objects.equals(otherEpic.uniqueIdentificationNumber, ((Epic) obj).uniqueIdentificationNumber);
+        return Objects.equals(otherEpic.id, ((Epic) obj).id);
     }
 }

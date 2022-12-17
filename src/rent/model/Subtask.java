@@ -1,18 +1,15 @@
 package rent.model;
-import java.util.HashMap;
+import rent.service.StatusOfTasks;
 import java.util.Objects;
 
 public class Subtask extends Task {
-    HashMap<Integer, Integer> tasksMap = new HashMap<>();
-    public Integer epicID;
+    public Integer epicId;
 
-    public Subtask() {
-    }
-
-    public String getSubtaskStatus() {
+    public StatusOfTasks getSubtaskStatus() {
         return taskStatus;
     }
-    public void setSubtaskStatus(String newStatus) {
+
+    public void setSubtaskStatus(StatusOfTasks newStatus) {
         taskStatus = newStatus;
     }
 
@@ -22,6 +19,6 @@ public class Subtask extends Task {
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         Task otherSubtask = (Task) obj;
-        return Objects.equals(otherSubtask.uniqueIdentificationNumber, ((Subtask) obj).uniqueIdentificationNumber);
+        return Objects.equals(otherSubtask.id, ((Subtask) obj).id);
     }
 }

@@ -1,9 +1,7 @@
 package rent.service;
-
 import rent.model.Epic;
 import rent.model.Subtask;
 import rent.model.Task;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,55 +11,56 @@ public class Manager {
     HashMap<Integer, Epic> epicsHashMap = new HashMap<>();
     HashMap<Integer, Task> taskHashMap = new HashMap<>();
     HashMap<Integer, Subtask> subtaskHashMap = new HashMap<>();
-    String[] status = {"NEW", "IN_PROGRESS", "DONE"};
 
-
-
-    public Manager() {
-    }
-    public Task makeNewTask(Task task, String description) {
+    public Task makeNewTask(Task task, String taskName, String description) {
         countOfTasks++;
-        task.uniqueIdentificationNumber = countOfTasks;
+        task.id = countOfTasks;
+        task.taskName = taskName;
         task.taskDescription = description;
-        task.setTaskStatus("NEW");
-        allTasksMap.put(task.uniqueIdentificationNumber, task);
+        task.setTaskStatus(StatusOfTasks.NEW);
+        allTasksMap.put(task.id, task);
         addTask(task);
         return task;
     }
 
-    public Epic makeNewEpic(Epic epic, String description) {
+    public Epic makeNewEpic(Epic epic, String taskName, String description) {
         countOfTasks++;
-        epic.uniqueIdentificationNumber = countOfTasks;
+        epic.id = countOfTasks;
+        epic.taskName = taskName;
         epic.taskDescription = description;
-        epic.setEpicStatus("NEW");
-        allTasksMap.put(epic.uniqueIdentificationNumber, epic);
+        epic.setEpicStatus(StatusOfTasks.NEW);
+        allTasksMap.put(epic.id, epic);
         addEpic(epic);
         return epic;
     }
 
-    public Subtask makeNewSubtask(Subtask subtask, Epic epic, String description) {
+    public Subtask makeNewSubtask(Subtask subtask, Epic epic, String taskName,
+                                  String description) {
         countOfTasks++;
-        subtask.uniqueIdentificationNumber = countOfTasks;
-        subtask.epicID = epic.uniqueIdentificationNumber;
+        subtask.id = countOfTasks;
+        subtask.epicId = epic.id;
+        subtask.taskName = taskName;
         subtask.taskDescription = description;
-        subtask.setSubtaskStatus("NEW");
+        subtask.setSubtaskStatus(StatusOfTasks.NEW);
         epic.joinSubtaskToEpic(epic, subtask);
-        allTasksMap.put(subtask.uniqueIdentificationNumber, subtask);
+        allTasksMap.put(subtask.id, subtask);
         addSubtask(subtask);
         return subtask;
     }
 
-
     public void addTask(Task task) {
-        taskHashMap.put(task.uniqueIdentificationNumber, task);
+        taskHashMap.put(task.id, task);
     }
+
     public void addEpic(Epic epic) {
-        epicsHashMap.put(epic.uniqueIdentificationNumber, epic);
+        epicsHashMap.put(epic.id, epic);
     }
+
     public void addSubtask(Subtask subtask) {
-        subtaskHashMap.put(subtask.uniqueIdentificationNumber, subtask);
+        subtaskHashMap.put(subtask.id, subtask);
     }
-    public HashMap<Integer, Task> getTasksList() {
+
+    public HashMap<Integer, Task> getTasksIdList() {
         return taskHashMap;
     }
 
@@ -85,88 +84,94 @@ public class Manager {
         subtaskHashMap.clear();
     }
 
-    public Task getTaskByIdentifyCod(Integer identifyCod) {
-        Task task = taskHashMap.get(identifyCod);
+    public Task getTaskById(Integer id) {
+        Task task = taskHashMap.get(id);
         return task;
     }
 
-    public Epic getEpicByIdentifyCod(Integer identifyCod) {
-        Epic epic = epicsHashMap.get(identifyCod);
+    public Epic getEpicById(Integer id) {
+        Epic epic = epicsHashMap.get(id);
         return epic;
     }
-    public Subtask getSubtaskByIdentifyCod(Integer identifyCod) {
-        Subtask subtask = subtaskHashMap.get(identifyCod);
+
+    public Subtask getSubtaskById(Integer id) {
+        Subtask subtask = subtaskHashMap.get(id);
         return subtask;
     }
 
-    public void removeTaskByIdentifyCod(Integer identifyCod) {
-        taskHashMap.remove(identifyCod);
-        allTasksMap.remove(identifyCod);
+    public void removeTaskById(Integer id) {
+        taskHashMap.remove(id);
+        allTasksMap.remove(id);
         System.out.println("Задача с уникальным идентификационным номером "
-                + identifyCod + " удалена.");
+                + id + " удалена.");
     }
-    public void removeEpicByIdentifyCod(Integer identifyCod) {
-        epicsHashMap.remove(identifyCod);
-        allTasksMap.remove(identifyCod);
+
+    public void removeEpicById(Integer id) {
+        epicsHashMap.remove(id);
+        allTasksMap.remove(id);
         System.out.println("Эпик с уникальным идентификационным номером "
-                + identifyCod + " удалён.");
+                + id + " удалён.");
     }
-    public void removeSubtaskByIdentifyCod(Integer identifyCod) {
+
+    public void removeSubtaskById(Integer identifyCod) {
         subtaskHashMap.remove(identifyCod);
         allTasksMap.remove(identifyCod);
         System.out.println("Подзадача с уникальным идентификационным номером "
                 + identifyCod + " удалена.");
     }
-   public HashMap<Integer, Task> getAllTypeTasksMap() {
+
+    public HashMap<Integer, Task> getAllTypeTasksIdList() {
         return allTasksMap;
     }
 
-   public ArrayList<Integer> getSubtaskOfEpic(Epic epic) {
-        ArrayList<Integer> subtasksOfEpic = epic.getSubtasksOfEpic(epic);
-        return subtasksOfEpic;
-   }
+    public ArrayList<Integer> getSubtaskIdOfEpic(Epic epic) {
+        ArrayList<Integer> subtasksIdOfEpic = epic.getSubtasksOfEpic(epic);
+        return subtasksIdOfEpic;
+    }
 
-    public void changeSubtaskStatus(Subtask subtask, String newStatus) {
+    public void changeSubtaskStatus(Subtask subtask, StatusOfTasks newStatus) {
         subtask.setSubtaskStatus(newStatus);
-        Epic epic = getEpicByIdentifyCod(subtask.epicID);
-        ArrayList<String> subtaskStatusOfEpic = new ArrayList<>();
+        Epic epic = getEpicById(subtask.epicId);
+        ArrayList<StatusOfTasks> subtaskStatusOfEpic = new ArrayList<>();
         ArrayList<Integer> subtaskID = epic.getSubtasksOfEpic(epic);
 
         for(int i = 0; i < subtaskID.size(); i++) {
-            Subtask otherSubtask = getSubtaskByIdentifyCod(subtaskID.get(i));
+            Subtask otherSubtask = getSubtaskById(subtaskID.get(i));
             subtaskStatusOfEpic.add(otherSubtask.getSubtaskStatus());
             }
-        if(subtaskStatusOfEpic.contains("NEW") && subtaskStatusOfEpic.contains("DONE")) {
-            epic.setEpicStatus("IN_PROGRESS");
-        } else if (!subtaskStatusOfEpic.contains("NEW")) {
-            epic.setEpicStatus("DONE");
+        if(subtaskStatusOfEpic.contains(StatusOfTasks.NEW) &&
+                subtaskStatusOfEpic.contains(StatusOfTasks.DONE)) {
+            epic.setEpicStatus(StatusOfTasks.IN_PROGRESS);
+        } else if (!subtaskStatusOfEpic.contains(StatusOfTasks.NEW)) {
+            epic.setEpicStatus(StatusOfTasks.DONE);
         }
     }
 
-    public void updateTask(Integer taskID, Task newTask) {
-        newTask.uniqueIdentificationNumber = taskID;
-        Task task = getTaskByIdentifyCod(taskID);
+    public void updateTask(Integer taskId, Task newTask) {
+        newTask.id = taskId;
+        Task task = getTaskById(taskId);
         newTask.setTaskStatus(task.getTaskStatus());
-        removeTaskByIdentifyCod(taskID);
-        allTasksMap.put(newTask.uniqueIdentificationNumber, newTask);
-        taskHashMap.put(newTask.uniqueIdentificationNumber, newTask);
+        removeTaskById(taskId);
+        allTasksMap.put(newTask.id, newTask);
+        taskHashMap.put(newTask.id, newTask);
     }
-    public void updataEpic(Integer epicID, Epic newEpic) {
-        newEpic.uniqueIdentificationNumber = epicID;
-        Epic epic = getEpicByIdentifyCod(epicID);
+
+    public void updataEpic(Integer epicId, Epic newEpic) {
+        newEpic.id = epicId;
+        Epic epic = getEpicById(epicId);
         newEpic.setEpicStatus(epic.getEpicStatus());
-        removeEpicByIdentifyCod(epicID);
-        allTasksMap.put(newEpic.uniqueIdentificationNumber, newEpic);
-        epicsHashMap.put(newEpic.uniqueIdentificationNumber, newEpic);
+        removeEpicById(epicId);
+        allTasksMap.put(newEpic.id, newEpic);
+        epicsHashMap.put(newEpic.id, newEpic);
     }
-    public void updateSubtask(Integer subtaskID, Subtask newSubtask) {
-        newSubtask.uniqueIdentificationNumber = subtaskID;
-        Subtask subtask = getSubtaskByIdentifyCod(subtaskID);
+
+    public void updateSubtask(Integer subtaskId, Subtask newSubtask) {
+        newSubtask.id = subtaskId;
+        Subtask subtask = getSubtaskById(subtaskId);
         newSubtask.setSubtaskStatus(subtask.getTaskStatus());
-        newSubtask.epicID = subtask.epicID;
-        removeSubtaskByIdentifyCod(subtaskID);
-        allTasksMap.put(newSubtask.uniqueIdentificationNumber, newSubtask);
-        subtaskHashMap.put(newSubtask.uniqueIdentificationNumber, newSubtask);
+        newSubtask.epicId = subtask.epicId;
+        removeSubtaskById(subtaskId);
+        allTasksMap.put(newSubtask.id, newSubtask);
+        subtaskHashMap.put(newSubtask.id, newSubtask);
     }
 }
-
