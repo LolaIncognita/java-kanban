@@ -8,34 +8,12 @@ public class Task {
     protected Integer id;
     protected StatusOfTasks taskStatus;
 
-    public Task() {
-    }
-
     public StatusOfTasks getTaskStatus() {
         return taskStatus;
     }
 
     public void setTaskStatus(StatusOfTasks newTaskStatus) {
         taskStatus = newTaskStatus;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (this.getClass() != obj.getClass()) return false;
-        Task otherTask = (Task) obj;
-        return Objects.equals(otherTask.id, ((Task) obj).id);
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "taskId = '" + id + '\'' +
-                ", taskName = '" + taskName + '\'' +
-                ", taskStatus = '" + taskStatus + '\'' +
-                ", taskDescribtion = '" + taskDescription +
-                '}';
     }
 
     public String getTaskName() {
@@ -60,5 +38,24 @@ public class Task {
 
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+        Task otherTask = (Task) obj;
+        return Objects.equals(otherTask.id, this.id);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskId = '" + id + '\'' +
+                ", taskName = '" + taskName + '\'' +
+                ", taskStatus = '" + taskStatus + '\'' +
+                ", taskDescribtion = '" + taskDescription +
+                '}';
     }
 }

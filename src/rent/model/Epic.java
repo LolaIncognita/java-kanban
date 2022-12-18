@@ -32,7 +32,7 @@ public class Epic extends Task {
         if (obj == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         Epic otherEpic = (Epic) obj;
-        return Objects.equals(otherEpic.id, ((Epic) obj).id);
+        return Objects.equals(otherEpic.id, this.id);
     }
 
     @Override

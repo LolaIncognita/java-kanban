@@ -3,15 +3,11 @@ import rent.model.Subtask;
 import rent.model.Task;
 import rent.service.Manager;
 import rent.service.StatusOfTasks;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
-        HashMap<Integer, Epic> epicsHashMap;
-        HashMap<Integer, Task> taskHashMap;
-        HashMap<Integer, Subtask> subtaskHashMap;
-
         System.out.println("Поехали!");
         Manager manager = new Manager();
         //Создание задач, эпиков, подзадач
@@ -27,24 +23,17 @@ public class Main {
                 "Описание по подзадаче 2.1");
         //Печать задач всех типов
         System.out.println("Список задач всех типов " + manager.getAllTypeTasksIdList());
-        //Печать всех задач, эпиков, подзадач по группам
-        taskHashMap = manager.getTasksIdList();
-        prinTaskList(taskHashMap);
-        epicsHashMap = manager.getEpicsList();
-        printEpicList(epicsHashMap);
-        subtaskHashMap = manager.getSubtasksList();
-        printSubtaskList(subtaskHashMap);
         //Печать статусов всех задач, эпиков, подзадач по группам
-        printTaskStatus(taskHashMap);
-        printEpicStatus(epicsHashMap);
-        printSubtaskStatus(subtaskHashMap);
+        printTaskStatus(manager.getTasksList());
+        printEpicStatus(manager.getEpicsList());
+        printSubtaskStatus(manager.getSubtasksList());
         //Изменение статуса двух подзадач на с NEW на DONE. Как поняла по задачнию у подзадач нет статуса IN_PROGRESS
         manager.changeSubtaskStatus(subtask1_1, StatusOfTasks.DONE);
         manager.changeSubtaskStatus(subtask2_1, StatusOfTasks.DONE);
         //Печать статусов всех задач, эпиков, подзадач по группам
-        printTaskStatus(taskHashMap);
-        printEpicStatus(epicsHashMap);
-        printSubtaskStatus(subtaskHashMap);
+        printTaskStatus(manager.getTasksList());
+        printEpicStatus(manager.getEpicsList());
+        printSubtaskStatus(manager.getSubtasksList());
         //Обновление задач, эпиков и подхадач
         manager.updateTask(task2.getId(), manager.makeNewTask(new Task(),
                 "Новое название по задаче 1", "Новое описание по задаче 1"));
@@ -55,15 +44,17 @@ public class Main {
         //Удаление задачи и эпика по ID
         manager.removeTaskById(task1.getId());
         manager.removeEpicById(epic1.getId());
-        //получение объектов: перечень эпиков, подзадач, тазач, а также получение перечня подзадач по номеру эпика
-        manager.getEpicsList();
-        manager.getSubtasksList();
-        manager.getTasksIdList();
-        manager.getSubtaskIdOfEpic(epic1);
+        //получение объектов: перечень эпиков, подзадач, задач, а также получение перечня подзадач по номеру эпика
+        System.out.println("Коллекция задач: " + manager.getTasksList());
+        System.out.println("Коллекция эпиков: " + manager.getEpicsList());
+        System.out.println("Коллекция подзадач: " + manager.getSubtasksList());
+        System.out.println("Список id подзадач эпика №" + epic1.getId() + ": " + manager.getSubtaskIdOfEpic(epic1));
         //Получение объектов задача, подзадача, эпик по ID
-        manager.getEpicById(epic1.getId());
-        manager.getSubtaskById(subtask1_2.getId());
-        manager.getTaskById(task2.getId());
+        System.out.println("Информация по эпику №" + epic1.getId() + ": " + manager.getEpicById(epic1.getId()));
+        System.out.println("Информация по подзадаче №" + subtask1_2.getId() + ": "
+                + manager.getSubtaskById(subtask1_2.getId()));
+        System.out.println("Информация по задаче №" + task2.getId() + ": "
+                + manager.getTaskById(task2.getId()));
         //Удаление всех задач, эпиков и подзадач
         manager.clearTasksList();
         System.out.println("Все задачи удалены.");
@@ -73,62 +64,35 @@ public class Main {
         System.out.println("Все подзадачи удалены.");
     }
 
-    public static void printTaskStatus(HashMap<Integer, Task> taskHashMap) {
-        if(taskHashMap.isEmpty()) {
+    public static void printTaskStatus(ArrayList<Task> tasksList) {
+        if(tasksList.isEmpty()) {
             System.out.println("Список задач пуст.");
         } else {
             System.out.println("Статусы задач:");
-            for (Integer taskId : taskHashMap.keySet()) {
-                    Task task = taskHashMap.get(taskId);
-                    System.out.println("Задача №" + taskId + ": "
-                            + task.getTaskStatus() + ".");
+            for (Task task : tasksList) {
+                System.out.println("Задача №" + task.getId() + ": "
+                        + task.getTaskStatus() + ".");
             }
         }
     }
 
-    public static void printSubtaskStatus(HashMap<Integer, Subtask> subtaskHashMap) {
-        if(subtaskHashMap.isEmpty()) {
+    public static void printSubtaskStatus(ArrayList<Subtask> subtasksList) {
+        if(subtasksList.isEmpty()) {
             System.out.println("Список подзадач пуст.");
         } else {
             System.out.println("Статусы подзадач:");
-            for (Integer subtaskId : subtaskHashMap.keySet()) {
-                    Subtask subtask = subtaskHashMap.get(subtaskId);
-                    System.out.println("Подзадача №" + subtaskId + ": "
+            for (Subtask subtask : subtasksList) {
+                    System.out.println("Подзадача №" + subtask.getId() + ": "
                             + subtask.getTaskStatus() + ".");
             }
         }
     }
 
-    public static void printEpicStatus(HashMap<Integer, Epic> epicsHashMap) {
+    public static void printEpicStatus(ArrayList<Epic> epicsList) {
         System.out.println("Статусы эпиков:");
-        for (Integer epicId : epicsHashMap.keySet()) {
-                Epic epic = epicsHashMap.get(epicId);
-                System.out.println("Эпик №" + epicId + ": "
+        for (Epic epic : epicsList) {
+                System.out.println("Эпик №" + epic.getId() + ": "
                         + epic.getEpicStatus() + ".");
-        }
-    }
-
-    public static void printSubtaskList(HashMap<Integer, Subtask> subtaskHashMap) {
-        System.out.println("Список подзадач:");
-        for (Integer subtaskId : subtaskHashMap.keySet()) {
-            System.out.println("Подзадача №" + subtaskId + ": "
-                    + subtaskHashMap.get(subtaskId) + ".");
-        }
-    }
-
-    public static void printEpicList(HashMap<Integer, Epic> epicsHashMap) {
-       System.out.println("Список эпиков:");
-       for (Integer epicId : epicsHashMap.keySet()) {
-           System.out.println("Эпик №" + epicId + ": "
-                   + epicsHashMap.get(epicId) + ".");
-       }
-   }
-
-    public static void prinTaskList(HashMap<Integer, Task> taskHashMap) {
-        System.out.println("Список задач:");
-        for (Integer taskId : taskHashMap.keySet()) {
-            System.out.println("Задача №" + taskId + ": "
-                    + taskHashMap.get(taskId) + ".");
         }
     }
 }
