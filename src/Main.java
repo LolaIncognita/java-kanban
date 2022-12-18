@@ -46,24 +46,24 @@ public class Main {
         printEpicStatus(epicsHashMap);
         printSubtaskStatus(subtaskHashMap);
         //Обновление задач, эпиков и подхадач
-        manager.updateTask(task2.id, manager.makeNewTask(new Task(),
+        manager.updateTask(task2.getId(), manager.makeNewTask(new Task(),
                 "Новое название по задаче 1", "Новое описание по задаче 1"));
-        manager.updataEpic(epic1.id, manager.makeNewEpic(new Epic(),
+        manager.updataEpic(epic1.getId(), manager.makeNewEpic(new Epic(),
                 "Новое название по эпику 3", "Новое описание по эпику 3"));
-        manager.updateSubtask(subtask1_2.id, manager.makeNewSubtask(new Subtask(), epic1,
+        manager.updateSubtask(subtask1_2.getId(), manager.makeNewSubtask(new Subtask(), epic1,
                 "Новое название по подзадаче 6", "Новое описание по подзадаче 6"));
         //Удаление задачи и эпика по ID
-        manager.removeTaskById(task1.id);
-        manager.removeEpicById(epic1.id);
+        manager.removeTaskById(task1.getId());
+        manager.removeEpicById(epic1.getId());
         //получение объектов: перечень эпиков, подзадач, тазач, а также получение перечня подзадач по номеру эпика
         manager.getEpicsList();
         manager.getSubtasksList();
         manager.getTasksIdList();
         manager.getSubtaskIdOfEpic(epic1);
         //Получение объектов задача, подзадача, эпик по ID
-        manager.getEpicById(epic1.id);
-        manager.getSubtaskById(subtask1_2.id);
-        manager.getTaskById(task2.id);
+        manager.getEpicById(epic1.getId());
+        manager.getSubtaskById(subtask1_2.getId());
+        manager.getTaskById(task2.getId());
         //Удаление всех задач, эпиков и подзадач
         manager.clearTasksList();
         System.out.println("Все задачи удалены.");

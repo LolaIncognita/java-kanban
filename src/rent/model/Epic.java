@@ -6,6 +6,10 @@ import java.util.Objects;
 public class Epic extends Task {
     ArrayList<Integer> subtaskIdOfEpic;
 
+    public Epic() {
+        subtaskIdOfEpic = new ArrayList<>();
+    }
+
     public void joinSubtaskToEpic(Epic joiningEpic, Subtask joiningSubtask) {
         joiningEpic.subtaskIdOfEpic.add(joiningSubtask.id);
     }
@@ -29,5 +33,16 @@ public class Epic extends Task {
         if (this.getClass() != obj.getClass()) return false;
         Epic otherEpic = (Epic) obj;
         return Objects.equals(otherEpic.id, ((Epic) obj).id);
+    }
+
+    @Override
+    public String toString() {
+        return "Epic{" +
+                "taskId = '" + id + '\'' +
+                ", taskName = '" + taskName + '\'' +
+                ", taskStatus = '" + taskStatus + '\'' +
+                ", taskDescribtion = '" + taskDescription +
+                ", subtaskIdOfEpic = '" + subtaskIdOfEpic +
+                '}';
     }
 }
