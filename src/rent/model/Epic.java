@@ -42,7 +42,7 @@ public class Epic extends Task {
                 ", taskName = '" + taskName + '\'' +
                 ", taskStatus = '" + taskStatus + '\'' +
                 ", taskDescribtion = '" + taskDescription +
-                ", subtaskIdOfEpic = '" + subtaskIdOfEpic +
-                '}';
+                ", subtaskIdOfEpic = '" + subtaskIdOfEpic.toString() +
+                "'}'";
     }
 }

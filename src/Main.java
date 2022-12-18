@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Поехали!");
         Manager manager = new Manager();
+
         //Создание задач, эпиков, подзадач
         Task task1 = manager.makeNewTask(new Task(), "Название задачи 1", "Описание по задаче 1");
         Task task2 = manager.makeNewTask(new Task(), "Название задачи 2", "Описание по задаче 2");
@@ -21,6 +22,7 @@ public class Main {
                 "Описание по подзадаче 1.2");
         Subtask subtask2_1 = manager.makeNewSubtask(new Subtask(), epic2, "Название по подзадаче 2.1",
                 "Описание по подзадаче 2.1");
+
         //Печать задач всех типов
         System.out.println("Список задач всех типов " + manager.getAllTypeTasksIdList());
         //Печать статусов всех задач, эпиков, подзадач по группам
@@ -35,15 +37,22 @@ public class Main {
         printEpicStatus(manager.getEpicsList());
         printSubtaskStatus(manager.getSubtasksList());
         //Обновление задач, эпиков и подхадач
-        manager.updateTask(task2.getId(), manager.makeNewTask(new Task(),
-                "Новое название по задаче 1", "Новое описание по задаче 1"));
+        manager.updateTask(task2.getId(), new Task(),
+                "Новое название по задаче 1", "Новое описание по задаче 1");
         manager.updataEpic(epic1.getId(), manager.makeNewEpic(new Epic(),
                 "Новое название по эпику 3", "Новое описание по эпику 3"));
         manager.updateSubtask(subtask1_2.getId(), manager.makeNewSubtask(new Subtask(), epic1,
                 "Новое название по подзадаче 6", "Новое описание по подзадаче 6"));
         //Удаление задачи и эпика по ID
         manager.removeTaskById(task1.getId());
+        System.out.println("Задача с уникальным идентификационным номером "
+                + task1.getId() + " удалена.");
         manager.removeEpicById(epic1.getId());
+        System.out.println("Эпик с уникальным идентификационным номером "
+                + epic1.getId() + " удалён.");
+        manager.removeSubtaskById(subtask1_2.getId());
+        System.out.println("Подзадача с уникальным идентификационным номером "
+                + subtask1_2.getId() + " удалена.");
         //получение объектов: перечень эпиков, подзадач, задач, а также получение перечня подзадач по номеру эпика
         System.out.println("Коллекция задач: " + manager.getTasksList());
         System.out.println("Коллекция эпиков: " + manager.getEpicsList());
