@@ -1,14 +1,15 @@
 package rent.service;
 import rent.model.Task;
 import java.util.ArrayList;
+import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    static ArrayList<Task> taskHistory = new ArrayList<>();
+    List<Task> taskHistory = new ArrayList<>();
     Integer historyMaxSize = 10;
 
     @Override
-    public ArrayList<Task> getHistory() {
+    public List<Task> getHistory() {
         return taskHistory;
     }
 

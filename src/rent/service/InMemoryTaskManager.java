@@ -12,8 +12,7 @@ public class InMemoryTaskManager implements TaskManager {
     ArrayList<Task> tasksList = new ArrayList<>();
     ArrayList<Epic> epicsList = new ArrayList<>();
     ArrayList<Subtask> subtasksList = new ArrayList<>();
-    Managers managers = new Managers();
-    HistoryManager historyManager = managers.getDefaultHistory();
+    final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
     public Task makeNewTask(Task task, String taskName, String description) {
