@@ -11,8 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Поехали!");
-        TaskManager taskManager = Managers.getDefault();
-        final HistoryManager historyManager = Managers.getDefaultHistory();
+        HistoryManager historyManager = Managers.getDefaultHistory();
+        TaskManager taskManager = Managers.getDefault(historyManager);
 
         // Блок для тестирования по ТЗ 4
         Task task1 = taskManager.makeNewTask(new Task(), "Название задачи 1", "Описание по задаче 1");
