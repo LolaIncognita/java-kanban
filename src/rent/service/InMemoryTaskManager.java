@@ -61,7 +61,7 @@ public class InMemoryTaskManager implements TaskManager {
         return tasksList;
     }
 
-        @Override
+    @Override
     public ArrayList<Epic> getEpicsList() {
         return epicsList;
     }
@@ -94,7 +94,7 @@ public class InMemoryTaskManager implements TaskManager {
                  taskById = task;
             }
         }
-        historyManager.add(taskById);
+        historyManager.addHistory(taskById);
         return taskById;
     }
 
@@ -106,7 +106,7 @@ public class InMemoryTaskManager implements TaskManager {
                 epicById = epic;
             }
         }
-        historyManager.add(epicById);
+        historyManager.addHistory(epicById);
         return epicById;
     }
 
@@ -118,53 +118,76 @@ public class InMemoryTaskManager implements TaskManager {
                 subtaskById = subtask;
             }
         }
-        historyManager.add(subtaskById);
+        historyManager.addHistory(subtaskById);
         return subtaskById;
     }
 
     @Override
     public void removeTaskById(Integer id) {
         int countOfRemovings = 0;
+        ArrayList<Task> list = new ArrayList<>();
+
+        historyManager.removeHistory(id);
         for (Task task: tasksList) {
             if (task.getId().equals(id)) {
-                tasksList.remove(task);
+                list.add(task);
                 countOfRemovings += 1;
             }
         }
+
         if (countOfRemovings == 0) {
             System.out.println("Задача с id = " + id + " не найдена.");
+        } else {
+            allTasksMap.remove(id);
+            tasksList.remove(list);
         }
-        allTasksMap.remove(id);
     }
 
     @Override
     public void removeEpicById(Integer id) {
         int countOfRemovings = 0;
-        for (Epic epic: epicsList) {
-            if ((epic.getId()).equals(id)) {
-                epicsList.remove(epic);
-                allTasksMap.remove(id);
+        ArrayList<Epic> list = new ArrayList<>();
+        Epic epic = getEpicById(id);
+        ArrayList<Integer> subtasksIdOfEpic = epic.getSubtasksOfEpic(epic);
+        if (subtasksIdOfEpic.size() > 0) {
+            for (Integer subtaskId : subtasksIdOfEpic) {
+                historyManager.removeHistory(subtaskId);
+            }
+        }
+        historyManager.removeHistory(id);
+        for (Epic epicForRemove: epicsList) {
+            if ((epicForRemove.getId()).equals(id)) {
+                list.add(epicForRemove);
                 countOfRemovings += 1;
             }
         }
+
         if (countOfRemovings == 0) {
             System.out.println("Задача с id = " + id + " не найдена.");
+        } else {
+            epicsList.remove(list);
+            allTasksMap.remove(id);
         }
     }
 
     @Override
     public void removeSubtaskById(Integer id) {
         int countOfRemovings = 0;
+        ArrayList<Subtask> list = new ArrayList<>();
+
+        historyManager.removeHistory(id);
         for (Subtask subtask: subtasksList) {
             if (subtask.getId().equals(id)) {
-                subtasksList.remove(subtask);
+                list.add(subtask);
                 countOfRemovings += 1;
             }
         }
         if (countOfRemovings == 0) {
             System.out.println("Подзадача с id = " + id + " не найдена.");
+        } else {
+            subtasksList.remove(list);
+            allTasksMap.remove(id);
         }
-        allTasksMap.remove(id);
     }
 
     @Override
