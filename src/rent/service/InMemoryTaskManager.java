@@ -127,7 +127,7 @@ public class InMemoryTaskManager implements TaskManager {
         int countOfRemovings = 0;
         ArrayList<Task> list = new ArrayList<>();
 
-        historyManager.removeHistory(id);
+        historyManager.remove(id);
         for (Task task: tasksList) {
             if (task.getId().equals(id)) {
                 list.add(task);
@@ -151,10 +151,10 @@ public class InMemoryTaskManager implements TaskManager {
         ArrayList<Integer> subtasksIdOfEpic = epic.getSubtasksOfEpic(epic);
         if (subtasksIdOfEpic.size() > 0) {
             for (Integer subtaskId : subtasksIdOfEpic) {
-                historyManager.removeHistory(subtaskId);
+                historyManager.remove(subtaskId);
             }
         }
-        historyManager.removeHistory(id);
+        historyManager.remove(id);
         for (Epic epicForRemove: epicsList) {
             if ((epicForRemove.getId()).equals(id)) {
                 list.add(epicForRemove);
@@ -175,7 +175,7 @@ public class InMemoryTaskManager implements TaskManager {
         int countOfRemovings = 0;
         ArrayList<Subtask> list = new ArrayList<>();
 
-        historyManager.removeHistory(id);
+        historyManager.remove(id);
         for (Subtask subtask: subtasksList) {
             if (subtask.getId().equals(id)) {
                 list.add(subtask);

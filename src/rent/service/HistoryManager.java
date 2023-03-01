@@ -1,11 +1,12 @@
 package rent.service;
 import rent.model.Task;
+import java.util.List;
 
 public interface HistoryManager {
 
     void addHistory(Task task);
 
-    void removeHistory(int id);
+    void remove(int id);
 
-     void getHistory();
+     List<Task> getHistory();
 }
