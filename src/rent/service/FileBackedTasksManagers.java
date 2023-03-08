@@ -92,11 +92,6 @@ public class FileBackedTasksManagers extends InMemoryTaskManager {
         List<String> lines = List.of(fileBackedTasksManager.readFile(file).split("\n"));
         if (lines.size() > 3) {
             for (int i = 1; i < lines.size()-2; i++) {
-            /*if (!lines.get(i).isEmpty()) {
-                fileBackedTasksManager.fromString(lines.get(i));
-            } else {
-                historyFromString(lines.get(lines.size()-1));
-            }*/
                 if (!lines.get(i).isEmpty()) {
                     fileBackedTasksManager.fromString(lines.get(i));
                 }
@@ -114,7 +109,7 @@ public class FileBackedTasksManagers extends InMemoryTaskManager {
         try {
             return Files.readString(file.toPath());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Произошла ошибка во время чтения файла");
         }
     }
 
