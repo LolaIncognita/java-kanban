@@ -1,13 +1,36 @@
 package rent.model;
 import rent.service.StatusOfTasks;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends Task {
     ArrayList<Integer> subtaskIdOfEpic;
+    private LocalDateTime endTime;
 
     public Epic() {
         subtaskIdOfEpic = new ArrayList<>();
+    }
+
+    public Epic(Integer id, String taskName, String taskDescription, String taskStatus, LocalDateTime startTime, long duration) {
+        super(id, taskName, taskDescription, taskStatus, startTime, duration);
+        subtaskIdOfEpic = new ArrayList<>();
+        endTime = null;
+    }
+
+    public Epic (String taskName, String taskDescription, LocalDateTime startTime, long duration) {
+        super(taskName, taskDescription, startTime, duration);
+        subtaskIdOfEpic = new ArrayList<>();
+        endTime = null;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     public void joinSubtaskToEpic(Epic joiningEpic, Subtask joiningSubtask) {
@@ -16,6 +39,10 @@ public class Epic extends Task {
 
     public ArrayList<Integer> getSubtasksOfEpic(Epic epic) {
         return epic.subtaskIdOfEpic;
+    }
+
+    public void setSubtasksOfEpic(ArrayList<Integer> subtaskIdOfEpic) {
+        this.subtaskIdOfEpic = subtaskIdOfEpic;
     }
 
     public void setEpicStatus(StatusOfTasks newStatus) {
@@ -42,7 +69,9 @@ public class Epic extends Task {
                 ", taskName = '" + taskName + '\'' +
                 ", taskStatus = '" + taskStatus + '\'' +
                 ", taskDescribtion = '" + taskDescription +
-                ", subtaskIdOfEpic = '" + subtaskIdOfEpic.toString() +
+                ", subtaskIdOfEpic = '" + subtaskIdOfEpic.toString() + '\'' +
+                ", startTime = '" + startTime + '\'' +
+                ", duration = '" + duration +
                 "'}'";
     }
 }

@@ -4,15 +4,15 @@ import rent.model.Subtask;
 import rent.model.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public interface TaskManager {
 
-    Task makeNewTask(Task task, String taskName, String description);
+    Task makeNewTask(Task task);
 
-    Epic makeNewEpic(Epic epic, String taskName, String description);
+    Epic makeNewEpic(Epic epic);
 
-    Subtask makeNewSubtask(Subtask subtask, Epic epic, String taskName,
-                                  String description);
+    Subtask makeNewSubtask(Subtask subtask, Epic epic);
 
     ArrayList<Task> getTasksList();
 
@@ -46,7 +46,8 @@ public interface TaskManager {
 
     void updateTask(Integer taskId, Task newTask, String newTaskName, String newTaskDescription);
 
-    void updataEpic(Integer epicId, Epic newEpic);
+    void updateEpic(Integer epicId, Epic newEpic);
 
     void updateSubtask(Integer subtaskId, Subtask newSubtask);
+    List<Task> getPrioritizedTasks();
 }

@@ -12,67 +12,6 @@ public class Main {
         System.out.println("Поехали!");
         HistoryManager historyManager = Managers.getDefaultHistory();
         TaskManager taskManager = Managers.getDefault(historyManager);
-
-        // Блок для тестирования по ТЗ 5
-        Task task1 = taskManager.makeNewTask(new Task(), "Название задачи 1", "Описание по задаче 1");
-        Task task2 = taskManager.makeNewTask(new Task(), "Название задачи 2", "Описание по задаче 2");
-        Epic epic1 = taskManager.makeNewEpic(new Epic(), "Название эпика 1", "Описание по эпику 1");
-        Epic epic2 = taskManager.makeNewEpic(new Epic(), "Название эпика 2", "Описание по эпику 2");
-        Subtask subtask2_1 = taskManager.makeNewSubtask(new Subtask(), epic2, "Название по подзадаче 2.1",
-                "Описание по подзадаче 2.1");
-        Subtask subtask2_2 = taskManager.makeNewSubtask(new Subtask(), epic2, "Название по подзадаче 2.2",
-                "Описание по подзадаче 2.2");
-        Subtask subtask2_3 = taskManager.makeNewSubtask(new Subtask(), epic2, "Название по подзадаче 2.3",
-                "Описание по подзадаче 2.3");
-
-        System.out.println("Список задач всех типов " + taskManager.getAllTypeTasksIdList());
-        //Просмотр истории - должна быть пустая
-        printHistory(historyManager);
-
-        //Получение объектов задача, подзадача, эпик по ID и просмотр после этого истории
-        System.out.println("Информация по эпику №" + epic1.getId() + ": " + taskManager.getEpicById(epic1.getId()));
-        printHistory(historyManager);
-        System.out.println("Информация по эпику №" + epic2.getId() + ": " + taskManager.getEpicById(epic2.getId()));
-        printHistory(historyManager);
-        System.out.println("Информация по подзадаче №" + subtask2_2.getId() + ": "
-                + taskManager.getSubtaskById(subtask2_2.getId()));
-        printHistory(historyManager);
-        System.out.println("Информация по подзадаче №" + subtask2_1.getId() + ": "
-                + taskManager.getSubtaskById(subtask2_1.getId()));
-        printHistory(historyManager);
-        System.out.println("Информация по подзадаче №" + subtask2_3.getId() + ": "
-                + taskManager.getSubtaskById(subtask2_3.getId()));
-        printHistory(historyManager);
-
-        System.out.println("Информация по задаче №" + task1.getId() + ": "
-                + taskManager.getTaskById(task1.getId()));
-        printHistory(historyManager);
-        System.out.println("Информация по задаче №" + task2.getId() + ": "
-                + taskManager.getTaskById(task2.getId()));
-        printHistory(historyManager);
-
-        //В истории не должно быть дублей. Задача при повторном вызове попадает снова в историю, предыдущий вызов из задачи удаляется
-        System.out.println("Информация по эпику №" + epic1.getId() + ": " + taskManager.getEpicById(epic1.getId()));
-        printHistory(historyManager);
-        System.out.println("Информация по задаче №" + task1.getId() + ": "
-                + taskManager.getTaskById(task1.getId()));
-        printHistory(historyManager);
-
-
-        //Удаление задачи по ID и просмотр после этого истории (удалённая задача не должна отобразиться в истории просмотра)
-        taskManager.removeTaskById(task1.getId());
-        System.out.println("Задача с уникальным идентификационным номером "
-                + task1.getId() + " удалена.");
-        printHistory(historyManager);
-
-        //Удаление эпика с подзадачами по ID и просмотр после этого истории (удалённый эпик со всеми подзадачами
-        // не должны отобразиться в истории просмотра)
-        System.out.println("Удаление эпика");
-        taskManager.removeEpicById(epic2.getId());
-        System.out.println("Эпик с уникальным идентификационным номером "
-                + epic2.getId() + " удалён.");
-        printHistory(historyManager);
-
     }
 
     public static void printTaskStatus(ArrayList<Task> tasksList) {
