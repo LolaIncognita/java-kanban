@@ -41,7 +41,7 @@ class InMemoryHistoryManagerTest {
     void addOneTaskTest() {
         taskManager.makeTaskByTask(task1);
         taskManager.getTaskById(1);
-        Assertions.assertNotNull(historyManager.getHistory().size(), "История пустая.");
+        Assertions.assertTrue(!historyManager.getHistory().isEmpty(), "История пустая.");
         Assertions.assertEquals(1, historyManager.getHistory().size(), "Размер истории отличается от ожидаемого.");
     }
 
@@ -51,7 +51,7 @@ class InMemoryHistoryManagerTest {
         taskManager.makeTaskByTask(task1);
         taskManager.getTaskById(1);
         taskManager.getTaskById(1);
-        Assertions.assertNotNull(historyManager.getHistory().size(), "История пустая.");
+        Assertions.assertTrue(!historyManager.getHistory().isEmpty(), "История пустая.");
         Assertions.assertEquals(1, historyManager.getHistory().size(), "Размер истории отличается от ожидаемого.");
     }
 

@@ -75,50 +75,13 @@ abstract class TasksManagerTest<T extends TaskManager> {
         Assertions.assertNotNull(task1, "Подзадача не найдена.");
     }
 
-    @Test
-    public void getTasksListTest() {
-        Task taskForCheck1 = new Task(1, "Название задачи 1", "Описание по задаче 1", "NEW", LocalDateTime.of(2023,03,15,11,0), 15L);
-        Task taskForCheck2 = new Task(2, "Название задачи 2", "Описание по задаче 2", "NEW", LocalDateTime.of(2023,03,15,11,25), 15L);
-        ArrayList<Task> tasksListForCheck = new ArrayList<>();
-        tasksListForCheck.add(taskForCheck1);
-        tasksListForCheck.add(taskForCheck2);
-        Assertions.assertEquals(tasksListForCheck, taskManager.getTasksList(), "Список задач не соответствует ожидаемому.");
-        Assertions.assertNotNull(taskManager.getTasksList(), "Список задач пустой.");
-    }
-
-    @Test
-    public void getEpicsListTest() {
-        Epic epicForCheck1 = new Epic(3, "Название эпика 1", "Описание по эпику 1", "NEW", LocalDateTime.of(2023,03,16,01,0), 15L);
-        Epic epicForCheck2 = new Epic(4, "Название эпика 2", "Описание по эпику 2", "NEW", LocalDateTime.of(2023,03,16,02,0), 15L);
-        ArrayList<Epic> epicsListForCheck = new ArrayList<>();
-        epicsListForCheck.add(epicForCheck1);
-        epicsListForCheck.add(epicForCheck2);
-        Assertions.assertEquals(epicsListForCheck, taskManager.getEpicsList(), "Список эпиков не соответствует ожидаемому.");
-        Assertions.assertNotNull(taskManager.getEpicsList(), "Список эпиков пустой.");
-    }
-
-    @Test
-    public void getSubtasksListTest() {
-        Subtask subtuskForCheck1 = new Subtask(5, "Название по подзадаче 2.1", "Описание по подзадаче 2.1", "NEW", 4, LocalDateTime.of(2023,03,16,02,0), 15L);
-        Subtask subtuskForCheck2 = new Subtask(6, "Название по подзадаче 2.2", "Описание по подзадаче 2.2", "NEW", 4, LocalDateTime.of(2023,03,16,02,20), 15L);
-        Subtask subtuskForCheck3 = new Subtask(7, "Название по подзадаче 2.3", "Описание по подзадаче 2.3", "NEW", 4, LocalDateTime.of(2023,03,16,02,50), 15L);
-        ArrayList<Subtask> subtasksListForCheck = new ArrayList<>();
-        subtasksListForCheck.add(subtuskForCheck1);
-        subtasksListForCheck.add(subtuskForCheck2);
-        subtasksListForCheck.add(subtuskForCheck3);
-        Assertions.assertEquals(subtasksListForCheck, taskManager.getSubtasksList(), "Список подзадач не соответствует ожидаемому.");
-        Assertions.assertNotNull(taskManager.getSubtasksList(), "Список подзадач пустой.");
-    }
-
-    //тут, получается, сразу проверка и работы листа + его геттера, так и очистки листа. Не смотря на то, что геттеры
-    // листов проверяются выше, данные тесты могут по-раздельности запускаться и показалось, что в этом случае надо
-    // удостовериться, что геттер и сам лист работают корректно, чтобы проверять clear()
+    //удалила проверку геттеров
 
     @Test
     public void clearTasksListTest() {
         Task taskForCheck1 = new Task(1, "Название задачи 1", "Описание по задаче 1", "NEW", LocalDateTime.of(2023,03,15,11,0), 15L);
         Task taskForCheck2 = new Task(2, "Название задачи 2", "Описание по задаче 2", "NEW", LocalDateTime.of(2023,03,15,11,25), 15L);
-        ArrayList<Task> tasksListForCheck = new ArrayList<>();
+        List<Task> tasksListForCheck = new ArrayList<>();
         tasksListForCheck.add(taskForCheck1);
         tasksListForCheck.add(taskForCheck2);
         Assertions.assertEquals(tasksListForCheck, taskManager.getTasksList(), "Список задач (перед очисткой) отличается от ожидаемого.");
@@ -131,7 +94,7 @@ abstract class TasksManagerTest<T extends TaskManager> {
     public void clearEpicsListTest() {
         Epic epicForCheck1 = new Epic(3, "Название эпика 1", "Описание по эпику 1", "NEW", LocalDateTime.of(2023,03,16,01,0), 15L);
         Epic epicForCheck2 = new Epic(4, "Название эпика 2", "Описание по эпику 2", "NEW", LocalDateTime.of(2023,03,16,02,0), 15L);
-        ArrayList<Epic> epicsListForCheck = new ArrayList<>();
+        List<Epic> epicsListForCheck = new ArrayList<>();
         epicsListForCheck.add(epicForCheck1);
         epicsListForCheck.add(epicForCheck2);
         Assertions.assertEquals(epicsListForCheck, taskManager.getEpicsList(), "Список эпиков (перед очисткой) отличается от ожидаемого.");
@@ -145,7 +108,7 @@ abstract class TasksManagerTest<T extends TaskManager> {
         Subtask subtuskForCheck1 = new Subtask(5, "Название по подзадаче 2.1", "Описание по подзадаче 2.1", "NEW", 4, LocalDateTime.of(2023,03,16,02,0), 15L);
         Subtask subtuskForCheck2 = new Subtask(6, "Название по подзадаче 2.2", "Описание по подзадаче 2.2", "NEW", 4, LocalDateTime.of(2023,03,16,02,20), 15L);
         Subtask subtuskForCheck3 = new Subtask(7, "Название по подзадаче 2.3", "Описание по подзадаче 2.3", "NEW", 4, LocalDateTime.of(2023,03,16,02,50), 15L);
-        ArrayList<Subtask> subtasksListForCheck = new ArrayList<>();
+        List<Subtask> subtasksListForCheck = new ArrayList<>();
         subtasksListForCheck.add(subtuskForCheck1);
         subtasksListForCheck.add(subtuskForCheck2);
         subtasksListForCheck.add(subtuskForCheck3);

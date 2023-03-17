@@ -25,7 +25,7 @@ class EpicTest {
         epic = taskManager.makeNewEpic(new Epic("Название эпика", "Описание по эпику", LocalDateTime.of(2023,03,15,11,0), 15L));
     }
 
-    public Subtask makeSubtasksNew(int i) {
+    private Subtask makeSubtasksNew(int i) {
         return taskManager.makeNewSubtask(new Subtask("Название по подзадаче " + i,
                         "Описание по подзадаче " + i, LocalDateTime.of(2023,03,15 + i,11,0), 15L),  epic);
     }
