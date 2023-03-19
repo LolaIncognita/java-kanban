@@ -1,10 +1,11 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import rent.model.Epic;
 import rent.model.Subtask;
 import rent.model.Task;
 import rent.service.*;
+import rent.service.enums.StatusOfTasks;
+import rent.service.historyManager.HistoryManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

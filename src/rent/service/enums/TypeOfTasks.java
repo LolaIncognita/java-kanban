@@ -1,4 +1,4 @@
-package rent.service;
+package rent.service.enums;
 
 public enum TypeOfTasks {
     EPIC,

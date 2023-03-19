@@ -1,5 +1,5 @@
 package rent.model;
-import rent.service.StatusOfTasks;
+import rent.service.enums.StatusOfTasks;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

@@ -12,14 +12,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FileBackedTasksManagersTest extends TasksManagerTest <FileBackedTasksManagers> {
+public class FileBackedTasksManagersTest extends TasksManagerTest <FileBackedTasksManager> {
     File file;
 
     @BeforeEach
     void setUp() {
         historyManager = Managers.getDefaultHistory();
         file = new File("src/rent/resources", "historyFile");
-        taskManager = new FileBackedTasksManagers(historyManager, file);
+        taskManager = new FileBackedTasksManager(historyManager, file);
         initTasks();
     }
 
@@ -55,8 +55,8 @@ public class FileBackedTasksManagersTest extends TasksManagerTest <FileBackedTas
 
     @Test
     void loadWithEmptyHistoryFromFileTest() {
-        FileBackedTasksManagers tasksManagers_2;
-        tasksManagers_2 = FileBackedTasksManagers.loadFromFile(file);
+        FileBackedTasksManager tasksManagers_2;
+        tasksManagers_2 = FileBackedTasksManager.loadFromFile(file);
         Assertions.assertEquals(taskManager.getAllTypeTasksIdList(), tasksManagers_2.getAllTypeTasksIdList());
         Assertions.assertEquals(0, historyManager.getHistory().size());
     }
@@ -65,8 +65,8 @@ public class FileBackedTasksManagersTest extends TasksManagerTest <FileBackedTas
     void loadWithHistoryFromFileTest() {
         taskManager.getTaskById(1);
         taskManager.getTaskById(2);
-        FileBackedTasksManagers tasksManagers_2;
-        tasksManagers_2 = FileBackedTasksManagers.loadFromFile(file);
+        FileBackedTasksManager tasksManagers_2;
+        tasksManagers_2 = FileBackedTasksManager.loadFromFile(file);
         Assertions.assertEquals(taskManager.getAllTypeTasksIdList(), tasksManagers_2.getAllTypeTasksIdList());
         Assertions.assertEquals(2, historyManager.getHistory().size());
     }

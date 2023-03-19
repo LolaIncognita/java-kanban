@@ -2,6 +2,8 @@ package rent.service;
 import rent.model.Epic;
 import rent.model.Subtask;
 import rent.model.Task;
+import rent.service.enums.StatusOfTasks;
+import rent.service.historyManager.HistoryManager;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -17,6 +19,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     public InMemoryTaskManager(HistoryManager historyManager) {
         this.historyManager = historyManager;
+    }
+
+    @Override
+    public HistoryManager getHistoryManager() {
+        return historyManager;
     }
 
     @Override

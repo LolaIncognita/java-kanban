@@ -1,17 +1,20 @@
 import rent.model.Epic;
 import rent.model.Subtask;
 import rent.model.Task;
-import rent.service.HistoryManager;
+import rent.server.HttpTaskServer;
+import rent.server.KVServer;
+import rent.service.historyManager.HistoryManager;
 import rent.service.TaskManager;
 import rent.service.Managers;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
-        System.out.println("Поехали!");
-        HistoryManager historyManager = Managers.getDefaultHistory();
-        TaskManager taskManager = Managers.getDefault(historyManager);
+    public static void main(String[] args) throws IOException {
+        HttpTaskServer server = new HttpTaskServer();
+        server.start();
     }
 
     public static void printTaskStatus(ArrayList<Task> tasksList) {

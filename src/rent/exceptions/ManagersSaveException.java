@@ -1,4 +1,4 @@
-package rent.service;
+package rent.exceptions;
 
 
 public class ManagersSaveException extends RuntimeException {

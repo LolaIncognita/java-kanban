@@ -2,6 +2,9 @@ package rent.service;
 import rent.model.Epic;
 import rent.model.Subtask;
 import rent.model.Task;
+import rent.service.enums.StatusOfTasks;
+import rent.service.historyManager.HistoryManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,5 +52,7 @@ public interface TaskManager {
     void updateEpic(Integer epicId, Epic newEpic);
 
     void updateSubtask(Integer subtaskId, Subtask newSubtask);
+
+    HistoryManager getHistoryManager();
     List<Task> getPrioritizedTasks();
 }

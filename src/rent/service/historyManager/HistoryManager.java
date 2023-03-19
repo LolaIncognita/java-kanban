@@ -1,4 +1,4 @@
-package rent.service;
+package rent.service.historyManager;
 import rent.model.Task;
 import java.util.List;
 

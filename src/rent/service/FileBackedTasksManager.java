@@ -1,35 +1,44 @@
 package rent.service;
 
+import rent.exceptions.ManagersSaveException;
 import rent.model.Epic;
 import rent.model.Subtask;
 import rent.model.Task;
+import rent.service.enums.StatusOfTasks;
+import rent.service.enums.TypeOfTasks;
+import rent.service.historyManager.HistoryManager;
+import rent.service.historyManager.InMemoryHistoryManager;
+
 import java.io.FileWriter;
 import java.io.Writer;
 import java.io.IOException;
 import java.io.*;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class FileBackedTasksManagers extends InMemoryTaskManager {
+public class FileBackedTasksManager extends InMemoryTaskManager {
     File file;
     HistoryManager historyManager;
 
-    public FileBackedTasksManagers(HistoryManager historyManager, File file) {
+    public FileBackedTasksManager(HistoryManager historyManager, File file) {
         super(historyManager);
         this.file = file;
         this.historyManager = historyManager;
     }
 
+    @Override
+    public HistoryManager getHistoryManager() {
+        return super.getHistoryManager();
+    }
 
     public static void main(String[] args) {
         HistoryManager historyManager = Managers.getDefaultHistory();
         File file = new File("src/rent/resources", "historyFile");
-        FileBackedTasksManagers fileBackedTasksManagers = new FileBackedTasksManagers(historyManager, file);
+        FileBackedTasksManager fileBackedTasksManagers = new FileBackedTasksManager(historyManager, file);
     }
 
     //должен сохранять текущее состояние менеджера в указанный файл - т.е. все задачи, подзадачи,
@@ -56,9 +65,9 @@ public class FileBackedTasksManagers extends InMemoryTaskManager {
     }
 
     //должен восстанавливать данные менеджера из файла при запуске программы
-    public static FileBackedTasksManagers loadFromFile(File file) {
+    public static FileBackedTasksManager loadFromFile(File file) {
         HistoryManager recoveredHistoryManager = new InMemoryHistoryManager();
-        FileBackedTasksManagers fileBackedTasksManager = new FileBackedTasksManagers(recoveredHistoryManager, file);
+        FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(recoveredHistoryManager, file);
         List<String> lines = List.of(fileBackedTasksManager.readFile(file).split("\n"));
         List<Integer> tasksIdForHistory;
         if (lines.size() > 3) {

@@ -1,5 +1,6 @@
-package rent.service;
+package rent.service.historyManager;
 import rent.model.Task;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

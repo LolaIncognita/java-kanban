@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import rent.model.Epic;
 import rent.model.Subtask;
 import rent.model.Task;
-import rent.service.HistoryManager;
-import rent.service.InMemoryHistoryManager;
+import rent.service.historyManager.HistoryManager;
+import rent.service.historyManager.InMemoryHistoryManager;
 import org.junit.jupiter.api.Assertions;
 import rent.service.InMemoryTaskManager;
 

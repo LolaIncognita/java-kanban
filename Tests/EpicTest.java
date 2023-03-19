@@ -3,9 +3,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import rent.model.Epic;
 import rent.model.Subtask;
-import rent.service.HistoryManager;
+import rent.service.historyManager.HistoryManager;
 import rent.service.Managers;
-import rent.service.StatusOfTasks;
+import rent.service.enums.StatusOfTasks;
 import rent.service.TaskManager;
 
 import java.time.LocalDateTime;
