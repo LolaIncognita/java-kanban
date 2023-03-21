@@ -234,7 +234,7 @@ abstract class TasksManagerTest<T extends TaskManager> {
     }
 
     //Для подзадач нужно дополнительно проверить наличие эпика, а для эпика — расчёт статуса (расчёт статуса
-    // представлен в EpicTest
+    // представлен в modelTests.EpicTest
     @Test
     public void hasSubtaskEpicTest() {
         int epicId = subtask2_1.getEpicId();

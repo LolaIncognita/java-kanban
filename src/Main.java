@@ -3,6 +3,7 @@ import rent.model.Subtask;
 import rent.model.Task;
 import rent.server.HttpTaskServer;
 import rent.server.KVServer;
+import rent.service.InMemoryTaskManager;
 import rent.service.historyManager.HistoryManager;
 import rent.service.TaskManager;
 import rent.service.Managers;
@@ -23,8 +24,7 @@ public class Main {
         } else {
             System.out.println("Статусы задач:");
             for (Task task : tasksList) {
-                System.out.println("Задача №" + task.getId() + ": "
-                        + task.getTaskStatus() + ".");
+                System.out.printf("Задача № %d: %s.", task.getId(), task.getTaskStatus());
             }
         }
     }
@@ -35,8 +35,7 @@ public class Main {
         } else {
             System.out.println("Статусы подзадач:");
             for (Subtask subtask : subtasksList) {
-                    System.out.println("Подзадача №" + subtask.getId() + ": "
-                            + subtask.getTaskStatus() + ".");
+                    System.out.printf("Подзадача № %d: %s.", subtask.getId(), subtask.getTaskStatus());
             }
         }
     }
@@ -44,8 +43,7 @@ public class Main {
     public static void printEpicStatus(ArrayList<Epic> epicsList) {
         System.out.println("Статусы эпиков:");
         for (Epic epic : epicsList) {
-                System.out.println("Эпик №" + epic.getId() + ": "
-                        + epic.getEpicStatus() + ".");
+                System.out.printf("Эпик № %d: %s.", epic.getId(), epic.getEpicStatus());
         }
     }
 
